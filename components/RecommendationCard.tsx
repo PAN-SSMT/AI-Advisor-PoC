@@ -25,10 +25,10 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({ recommendation,
   const isActionable = recommendation.status === RecommendationStatus.Pending;
 
   return (
-    <div className={`rounded-lg border-l-4 shadow-sm transition-all duration-300 ${riskStyles[recommendation.riskLevel]} ${compact ? 'p-4' : 'p-6'}`}>
+    <div className={`rounded-lg border-l-4 shadow-sm transition-all duration-300 ${riskStyles[recommendation.riskLevel]} ${compact ? 'p-4' : 'p-4'}`}>
       <div className="flex justify-between items-start">
         <h3 className={`text-lg font-bold text-gray-900 ${compact ? 'mb-0' : 'mb-2'}`}>{recommendation.title}</h3>
-        <div className="flex flex-col items-end gap-1 flex-shrink-0 ml-2">
+        <div className="flex flex-col items-end gap-0 flex-shrink-0 ml-2 -mt-1">
           <span className={`px-2 py-1 text-xs font-semibold rounded-full ${riskStyles[recommendation.riskLevel]}`}>
             {recommendation.riskLevel} Risk
           </span>
@@ -39,45 +39,57 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({ recommendation,
       </div>
       
       {!compact && (
-        <div className="flex justify-between items-start mt-2">
-          <div className="w-[70%] pr-4">
-              <details className="mb-4">
-                <summary className="text-sm font-medium text-blue-600 cursor-pointer hover:underline">Show Description and Rationale</summary>
-                <div className="mt-2 text-sm bg-gray-50 p-3 rounded-md">
-                  <h4 className="font-semibold text-gray-800 mb-1">Description</h4>
-                  <p className="mb-3 text-gray-600">{recommendation.description}</p>
-                  <h4 className="font-semibold text-gray-800 mb-1">Rationale</h4>
-                  <p className="text-gray-500">{recommendation.rationale}</p>
-                </div>
-              </details>
-              <details>
-                <summary className="text-sm font-medium text-blue-600 cursor-pointer hover:underline">
-                  {recommendation.status === RecommendationStatus.Approved ? 'Show Implementation Notes' : 'Show Implementation Instructions'}
-                </summary>
-                <div className="mt-2 text-sm text-gray-600 bg-gray-50 p-3 rounded-md">
-                  <p className="whitespace-pre-wrap">{recommendation.implementationInstructions}</p>
-                </div>
-              </details>
+        <>
+          <div className="mt-1 w-full">
+            <details className="mb-1">
+              <summary className="text-sm font-medium text-blue-600 cursor-pointer hover:underline">Show Description and Rationale</summary>
+              <div className="mt-1 text-sm bg-gray-50 p-2 rounded-md">
+                <h4 className="font-semibold text-gray-800 mb-1">Description</h4>
+                <p className="mb-3 text-gray-600">{recommendation.description}</p>
+                <h4 className="font-semibold text-gray-800 mb-1">Rationale</h4>
+                <p className="text-gray-500">{recommendation.rationale}</p>
+              </div>
+            </details>
+            <details>
+              <summary className="text-sm font-medium text-blue-600 cursor-pointer hover:underline">
+                {recommendation.status === RecommendationStatus.Approved ? 'Show Implementation Notes' : 'Show Implementation Instructions'}
+              </summary>
+              <div className="mt-1 text-sm text-gray-600 bg-gray-50 p-2 rounded-md">
+                <p className="whitespace-pre-wrap">{recommendation.implementationInstructions}</p>
+              </div>
+            </details>
           </div>
-          <div className="flex items-center justify-end gap-3">
-            {recommendation.status === RecommendationStatus.Approved && (
-              <span className="text-sm font-semibold text-green-600 flex items-center">
-                {recommendation.implementedOn ? `Implemented on: ${recommendation.implementedOn}` : 'Implemented'}
-              </span>
-            )}
-            {recommendation.status === RecommendationStatus.Rejected && (
-              <span className="text-sm font-semibold text-red-600">Will not Implement</span>
-            )}
-            {isActionable && !isReadOnly && (
-              <button
-                onClick={() => onUpdateStatus(recommendation.id, RecommendationStatus.Rejected)}
-                className="px-4 py-3 text-xs font-medium text-red-800 bg-red-100 border border-red-800 rounded-md shadow-sm hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-              >
-                Will not Implement
-              </button>
-            )}
+
+          <div className="mt-3 flex justify-between items-end">
+            <div>
+              {isActionable && !isReadOnly && (
+                <button
+                  onClick={() => onUpdateStatus(recommendation.id, RecommendationStatus.Rejected)}
+                  className="px-3 py-1 text-[10px] font-medium text-red-800 bg-red-100 border border-red-800 rounded-md shadow-sm hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                >
+                  Will not Implement
+                </button>
+              )}
+            </div>
+
+            <div className="text-right">
+              {recommendation.status === RecommendationStatus.Approved && (
+                <span className="text-sm font-semibold text-green-600">
+                  {recommendation.implementedOn ? `Implemented on: ${recommendation.implementedOn}` : 'Implemented'}
+                </span>
+              )}
+              {recommendation.status === RecommendationStatus.Rejected && (
+                <span className="text-sm font-semibold text-red-600">Will not Implement</span>
+              )}
+              {isActionable && !isReadOnly && (
+                <div className="text-sm text-black space-y-1">
+                  <p>Deployment increase: <span className="font-semibold text-green-700">2%</span></p>
+                  <p>Scale & Optimize increase: <span className="font-semibold text-green-700">3%</span></p>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );

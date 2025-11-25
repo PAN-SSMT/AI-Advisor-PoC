@@ -16,7 +16,7 @@ const ScaleOptimizeWidget: React.FC<ScaleOptimizeWidgetProps> = ({ onOpenModal }
                 <button
                     onClick={onOpenModal}
                     title="Open scale & optimize details"
-                    className="p-1 text-gray-500 hover:text-blue-600 hover:bg-gray-100 rounded-full transition-colors"
+                    className="p-1 text-blue-600 hover:text-blue-800 hover:bg-gray-100 rounded-full transition-colors"
                     aria-label="Open scale and optimize details"
                 >
                     <NewWindowIcon className="w-4 h-4" />
