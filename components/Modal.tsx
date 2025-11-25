@@ -1,0 +1,65 @@
+import React, { useEffect } from 'react';
+import ReactDOM from 'react-dom';
+
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  children: React.ReactNode;
+}
+
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
+  useEffect(() => {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleEsc);
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  return ReactDOM.createPortal(
+    <div 
+      className="fixed inset-0 bg-gray-800 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center p-4" 
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      <div 
+        className="relative mx-auto w-full max-w-5xl shadow-lg rounded-2xl bg-white" 
+        onClick={e => e.stopPropagation()}
+      >
+        <div className="flex justify-between items-center p-5 border-b border-gray-200">
+          <h3 id="modal-title" className="text-xl font-semibold text-gray-900">{title}</h3>
+          <button 
+            onClick={onClose} 
+            className="p-1.5 rounded-full text-gray-400 hover:bg-gray-200 hover:text-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            aria-label="Close modal"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div className="max-h-[80vh] overflow-y-auto">
+          {children}
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+};
+
+export default Modal;

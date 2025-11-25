@@ -1,0 +1,5 @@
+{
+  "name": "Cloud Security AI Advisor",
+  "description": "An AI-powered consultant for Palo Alto Networks' Prisma and Cortex Cloud, helping customers implement, customize, and operate their cloud security solutions with proactive recommendations and expert advice.",
+  "requestFramePermissions": []
+}
