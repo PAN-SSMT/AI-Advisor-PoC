@@ -81,10 +81,10 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({ recommendation,
               {recommendation.status === RecommendationStatus.Rejected && (
                 <span className="text-sm font-semibold text-red-600">Will not Implement</span>
               )}
-              {isActionable && !isReadOnly && (
-                <div className="text-sm text-black space-y-1">
-                  <p>Deployment increase: <span className="font-semibold text-green-700">2%</span></p>
-                  <p>Scale & Optimize increase: <span className="font-semibold text-green-700">3%</span></p>
+              {isActionable && !isReadOnly && recommendation.deploymentIncrease !== undefined && recommendation.scaleOptimizeIncrease !== undefined && (
+                <div className="text-sm space-y-1">
+                  <p className="text-black">Deployment increase: <span className="font-semibold text-green-700">{recommendation.deploymentIncrease}%</span></p>
+                  <p className="text-black">Scale & Optimize increase: <span className="font-semibold text-green-700">{recommendation.scaleOptimizeIncrease}%</span></p>
                 </div>
               )}
             </div>

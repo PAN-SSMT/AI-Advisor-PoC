@@ -14,6 +14,8 @@ export interface Recommendation {
   effort: 'Low' | 'Medium' | 'High';
   status: RecommendationStatus;
   implementedOn?: string;
+  deploymentIncrease?: number;
+  scaleOptimizeIncrease?: number;
 }
 
 export interface ChatMessage {
