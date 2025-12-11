@@ -2,7 +2,9 @@ import { GoogleGenAI, Type, Chat } from "@google/genai";
 import { Recommendation, RecommendationStatus } from '../types';
 
 // FIX: Per coding guidelines, do not cast environment variables.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const apiKey = process.env.API_KEY;
+console.log("API Key loaded:", apiKey ? `${apiKey.substring(0, 10)}...` : "NOT FOUND");
+const ai = new GoogleGenAI({ apiKey: apiKey || "" });
 
 const recommendationSchema = {
   type: Type.ARRAY,
@@ -83,8 +85,9 @@ export const sendMessage = async (chat: Chat, message: string): Promise<string> 
   try {
     const response = await chat.sendMessage({ message });
     return response.text;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error getting chat response:", error);
-    return "I'm sorry, I encountered an error while processing your request. Please try again.";
+    const errorMessage = error?.message || error?.toString() || "Unknown error";
+    return `I'm sorry, I encountered an error: ${errorMessage}`;
   }
 };

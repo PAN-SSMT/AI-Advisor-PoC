@@ -1,46 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChatMessage } from '../types';
-import { BotIcon, UserIcon, SendIcon, LoadingSpinner, UploadIcon, GoogleDriveIcon, DropboxIcon, SharePointIcon, ComputerDesktopIcon, DocumentIcon, ChevronRightIcon, ChevronLeftIcon } from './icons';
+import { BotIcon, UserIcon, SendIcon, LoadingSpinner } from './icons';
 
 interface ChatInterfaceProps {
   messages: ChatMessage[];
   onSendMessage: (message: string) => void;
   isLoading: boolean;
-  onOpenCurrentDocuments: () => void;
 }
 
-const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, onSendMessage, isLoading, onOpenCurrentDocuments }) => {
+const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, onSendMessage, isLoading }) => {
   const [input, setInput] = useState('');
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [menuView, setMenuView] = useState<'main' | 'upload'>('main');
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(scrollToBottom, [messages, isLoading]);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    if (isDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-      // Reset menu view when closed
-      setTimeout(() => setMenuView('main'), 200);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isDropdownOpen]);
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,75 +25,11 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, onSendMessage, 
       setInput('');
     }
   };
-  
-  const handleUploadOptionClick = () => {
-    // In a real app, this would trigger the corresponding file picker.
-    console.log("Upload option clicked");
-    setIsDropdownOpen(false);
-  };
-
-  const handleOpenCurrentDocuments = () => {
-    onOpenCurrentDocuments();
-    setIsDropdownOpen(false);
-  };
 
   return (
     <aside className="bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col flex-1 overflow-hidden min-h-0">
-      <div className="p-4 border-b border-gray-200 flex-shrink-0 flex justify-between items-center">
+      <div className="p-4 border-b border-gray-200 flex-shrink-0">
         <h2 className="text-lg font-semibold text-gray-900">NOVA Advisor</h2>
-        <div className="relative" ref={dropdownRef}>
-          <button
-            onClick={() => setIsDropdownOpen(prev => !prev)}
-            className="flex items-center gap-2 px-3 py-1.5 text-xs bg-blue-100 text-blue-800 border border-blue-800 font-semibold rounded-md shadow-sm hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
-          >
-            <DocumentIcon className="w-4 h-4" />
-            <span>Support Documents</span>
-          </button>
-          {isDropdownOpen && (
-            <div className="absolute right-0 mt-2 w-64 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
-              {menuView === 'main' ? (
-                <div className="py-1">
-                    <button onClick={handleOpenCurrentDocuments} className="w-full text-left flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-                        <div className="flex items-center gap-3">
-                            <DocumentIcon className="w-5 h-5 text-gray-500" />
-                            <span>Current Documents</span>
-                        </div>
-                    </button>
-                    <button onClick={() => setMenuView('upload')} className="w-full text-left flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-                        <div className="flex items-center gap-3">
-                            <UploadIcon className="w-5 h-5 text-gray-500" />
-                            <span>Upload Documents</span>
-                        </div>
-                        <ChevronRightIcon className="w-4 h-4 text-gray-400" />
-                    </button>
-                </div>
-              ) : (
-                <div className="py-1">
-                  <button onClick={() => setMenuView('main')} className="w-full text-left flex items-center gap-2 px-4 py-2 text-xs text-gray-500 bg-gray-50 hover:bg-gray-100 border-b border-gray-100" role="menuitem">
-                    <ChevronLeftIcon className="w-3 h-3" />
-                    <span>Back</span>
-                  </button>
-                  <button onClick={handleUploadOptionClick} className="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-                    <GoogleDriveIcon className="w-5 h-5 text-gray-500" />
-                    <span>Google Drive</span>
-                  </button>
-                  <button onClick={handleUploadOptionClick} className="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-                    <DropboxIcon className="w-5 h-5 text-gray-500" />
-                    <span>Dropbox</span>
-                  </button>
-                  <button onClick={handleUploadOptionClick} className="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-                    <SharePointIcon className="w-5 h-5 text-gray-500" />
-                    <span>SharePoint</span>
-                  </button>
-                  <button onClick={handleUploadOptionClick} className="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-                    <ComputerDesktopIcon className="w-5 h-5 text-gray-500" />
-                    <span>Upload from computer</span>
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
       </div>
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((message) => (

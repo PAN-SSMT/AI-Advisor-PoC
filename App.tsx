@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import logo from './assets/PAWN.png';
 import { Chat } from '@google/genai';
 import ChatInterface from './components/ChatInterface';
-import AdoptionMaturityWidget from './components/AdoptionMaturityWidget';
-import ScaleOptimizeWidget from './components/ScaleOptimizeWidget';
+import CombinedProgressWidget from './components/CombinedProgressWidget';
 import ServicesPipelineWidget, { ServiceOffering } from './components/ServicesPipelineWidget';
+import ProgressIndicatorsWidget from './components/ProgressIndicatorsWidget';
 import RecommendedActionsWidget from './components/RecommendedActionsWidget';
 import Modal from './components/Modal';
 import DeploymentDetails from './components/DeploymentDetails';
@@ -13,7 +12,13 @@ import CloudDeploymentServicesDetails from './components/StatusIndicator';
 import EEAvailabilityDetails from './components/Sidebar';
 import TMProjectsDetails from './components/ClarizenInfo';
 import ScaleAndOptimizeSODetails from './components/TechnicalInformationForm';
+import SupportCasesDetails from './components/SupportCasesDetails';
+import LicenseConsumptionDetails from './components/LicenseConsumptionDetails';
 import CurrentDocuments from './components/CurrentDocuments';
+import LastSessionDetails from './components/LastSessionDetails';
+import NextSessionDetails from './components/NextSessionDetails';
+// import AppNavigation from './components/AppNavigation';
+import MTTDetails from './components/MTTDetails';
 
 import {
   Recommendation,
@@ -186,9 +191,16 @@ const App: React.FC = () => {
   const [isEEAvailabilityModalOpen, setIsEEAvailabilityModalOpen] = useState(false);
   const [isTMProjectsModalOpen, setIsTMProjectsModalOpen] = useState(false);
   const [isScaleOptimizeSOModalOpen, setIsScaleOptimizeSOModalOpen] = useState(false);
+  const [isSupportCasesModalOpen, setIsSupportCasesModalOpen] = useState(false);
+  const [isLicenseConsumptionModalOpen, setIsLicenseConsumptionModalOpen] = useState(false);
   const [isActionItemsModalOpen, setIsActionItemsModalOpen] = useState(false);
   const [isImplementedActionsModalOpen, setIsImplementedActionsModalOpen] = useState(false);
   const [isCurrentDocumentsModalOpen, setIsCurrentDocumentsModalOpen] = useState(false);
+  const [isLastSessionModalOpen, setIsLastSessionModalOpen] = useState(false);
+  const [isNextSessionModalOpen, setIsNextSessionModalOpen] = useState(false);
+  const [isMTTDModalOpen, setIsMTTDModalOpen] = useState(false);
+  const [isMTTCModalOpen, setIsMTTCModalOpen] = useState(false);
+  const [isMTTRModalOpen, setIsMTTRModalOpen] = useState(false);
 
   const [chat, setChat] = useState<Chat | null>(null);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
@@ -256,6 +268,18 @@ const App: React.FC = () => {
       case 'scale-optimize':
         setIsScaleOptimizeSOModalOpen(true);
         break;
+      case 'support-cases':
+        setIsSupportCasesModalOpen(true);
+        break;
+      case 'license-consumption':
+        setIsLicenseConsumptionModalOpen(true);
+        break;
+      case 'last-session':
+        setIsLastSessionModalOpen(true);
+        break;
+      case 'next-session':
+        setIsNextSessionModalOpen(true);
+        break;
       default:
         break;
     }
@@ -264,58 +288,73 @@ const App: React.FC = () => {
   const servicesPipelineData = {
     lastSession: {
       date: '2024-07-15',
-      summary: 'Reviewed initial setup and configured basic policies.',
+      summary: [
+        'Reviewed initial setup and configured basic policies.',
+        'Completed onboarding of primary AWS accounts.',
+        'Configured alert notifications for critical severity findings.',
+        'Established baseline compliance standards for CIS benchmarks.',
+        'Integrated with existing SIEM for log forwarding.',
+      ],
     },
     nextSession: {
       date: '2024-08-01',
       summary: [
-        'Onboard new cloud accounts.',
-        'Fine-tune vulnerability scanning.',
-        'User training session.',
+        'Onboard new cloud accounts (Azure production environment).',
+        'Fine-tune vulnerability scanning thresholds.',
+        'User training session for SOC team.',
+        'Review and optimize IAM policies based on usage analysis.',
+        'Configure custom compliance policies for internal standards.',
+        'Set up automated remediation workflows.',
       ],
     },
-    supportContacts: [
-      { role: 'CSE', name: 'Alex Johnson', email: 'alex.j@example.com' },
-      { role: 'EE', name: 'Maria Garcia', email: 'maria.g@example.com' },
-      { role: 'CSM', name: 'David Chen', email: 'david.c@example.com' },
-    ],
-    expirationDate: '2025-06-30',
-    tenantExpirationDate: '2026-01-15',
   };
 
   return (
     <div className="flex flex-col h-screen w-screen text-gray-900">
-      <header className="p-4 md:px-8 md:py-5 border-b border-gray-200 bg-white shadow-sm flex-shrink-0 flex justify-between items-center">
+      <header className="p-4 md:px-8 md:py-5 border-b border-gray-200 bg-white shadow-sm flex-shrink-0 flex justify-between items-center relative">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">N.O.V.A.</h1>
-          <p className="text-gray-500 mt-1">Next-Gen Operations & Virtual Advisor</p>
+          <img src="./assets/nova-logo.png" alt="NOVA - Next-Gen Operations & Virtual Advisor" className="h-[90px] -translate-y-[6%]" />
         </div>
-        <div className="flex items-center gap-4">
-          <div className="text-right">
-            <img src={logo} alt="Palo Alto Networks Logo" className="text-3xl font-bold text-gray-900" width="350"/>
-            <p className="text-gray-900 mt-1 text-xl">Technical Services</p>
-          </div>
+        {/* <div className="absolute left-1/2 -translate-x-1/2">
+          <AppNavigation currentApp="NOVA" />
+        </div> */}
+        <div className="text-right">
+          <img src="./assets/PaloAltoLogo.png" alt="Palo Alto Networks" className="h-[70px]" />
+          <p className="text-gray-900 -mt-1 text-[18px] font-medium pr-[6%]">Technical Services</p>
         </div>
       </header>
       
       <main className="flex flex-1 overflow-hidden bg-gray-50 p-3 md:p-4 gap-3 md:gap-4">
         {/* Left Column */}
         <div className="w-1/3 min-w-[350px] max-w-[450px] flex flex-col gap-3 md:gap-4">
-            <div className="flex gap-3 md:gap-4">
-                <AdoptionMaturityWidget onOpenModal={() => setIsDeploymentModalOpen(true)} />
-                <ScaleOptimizeWidget onOpenModal={() => setIsScaleOptimizeModalOpen(true)} />
-            </div>
+            <CombinedProgressWidget 
+              onOpenMTTDModal={() => setIsMTTDModalOpen(true)}
+              onOpenMTTCModal={() => setIsMTTCModalOpen(true)}
+              onOpenMTTRModal={() => setIsMTTRModalOpen(true)}
+            />
             <ChatInterface
               messages={chatMessages}
               onSendMessage={handleSendMessage}
               isLoading={isLoadingChat}
-              onOpenCurrentDocuments={() => setIsCurrentDocumentsModalOpen(true)}
             />
         </div>
 
         {/* Right Column */}
         <div className="flex-1 flex flex-col gap-3 md:gap-4">
-          <ServicesPipelineWidget {...servicesPipelineData} onOpenPopup={handleOpenServiceOfferingPopup} />
+          <div className="flex gap-3 md:gap-4">
+            <div className="flex-[0_0_55%]">
+              <ServicesPipelineWidget 
+                {...servicesPipelineData} 
+                onOpenPopup={handleOpenServiceOfferingPopup}
+              />
+            </div>
+            <div className="flex-[1_1_45%]">
+              <ProgressIndicatorsWidget
+                onOpenDeploymentModal={() => setIsDeploymentModalOpen(true)}
+                onOpenScaleOptimizeModal={() => setIsScaleOptimizeModalOpen(true)}
+              />
+            </div>
+          </div>
           <RecommendedActionsWidget
             recommendations={recommendations}
             isLoadingRecs={isLoadingRecs}
@@ -344,6 +383,27 @@ const App: React.FC = () => {
       <Modal isOpen={isScaleOptimizeSOModalOpen} onClose={() => setIsScaleOptimizeSOModalOpen(false)} title="Scale & Optimize Service Details">
         <ScaleAndOptimizeSODetails />
       </Modal>
+      <Modal 
+        isOpen={isSupportCasesModalOpen} 
+        onClose={() => setIsSupportCasesModalOpen(false)} 
+        title="Support Cases"
+        headerPaddingClass="py-5 pr-5 pl-10"
+        headerCenter={
+          <button className="text-blue-600 hover:underline text-sm">
+            Open New Support Case
+          </button>
+        }
+      >
+        <SupportCasesDetails />
+      </Modal>
+      <Modal 
+        isOpen={isLicenseConsumptionModalOpen} 
+        onClose={() => setIsLicenseConsumptionModalOpen(false)} 
+        title="License Consumption"
+        headerPaddingClass="py-5 pr-5 pl-10"
+      >
+        <LicenseConsumptionDetails />
+      </Modal>
       <Modal isOpen={isActionItemsModalOpen} onClose={() => setIsActionItemsModalOpen(false)} title="Action Items">
         <RecommendedActionsWidget
             recommendations={recommendations}
@@ -362,6 +422,50 @@ const App: React.FC = () => {
       </Modal>
       <Modal isOpen={isCurrentDocumentsModalOpen} onClose={() => setIsCurrentDocumentsModalOpen(false)} title="Support Documents">
         <CurrentDocuments />
+      </Modal>
+      <Modal 
+        isOpen={isLastSessionModalOpen} 
+        onClose={() => setIsLastSessionModalOpen(false)} 
+        title="Last Session"
+        titleRight={<span className="text-gray-500 font-medium">{servicesPipelineData.lastSession.date}</span>}
+        hideBorder
+        maxWidth="max-w-3xl"
+      >
+        <LastSessionDetails summary={servicesPipelineData.lastSession.summary} />
+      </Modal>
+      <Modal 
+        isOpen={isNextSessionModalOpen} 
+        onClose={() => setIsNextSessionModalOpen(false)} 
+        title="Next Session"
+        titleRight={<span className="text-gray-500 font-medium">{servicesPipelineData.nextSession.date}</span>}
+        hideBorder
+        maxWidth="max-w-3xl"
+      >
+        <NextSessionDetails summary={servicesPipelineData.nextSession.summary} />
+      </Modal>
+      <Modal 
+        isOpen={isMTTDModalOpen} 
+        onClose={() => setIsMTTDModalOpen(false)} 
+        title="Mean Time to Detect (MTTD)"
+        maxWidth="max-w-4xl"
+      >
+        <MTTDetails metricType="MTTD" />
+      </Modal>
+      <Modal 
+        isOpen={isMTTCModalOpen} 
+        onClose={() => setIsMTTCModalOpen(false)} 
+        title="Mean Time to Contain (MTTC)"
+        maxWidth="max-w-4xl"
+      >
+        <MTTDetails metricType="MTTC" />
+      </Modal>
+      <Modal 
+        isOpen={isMTTRModalOpen} 
+        onClose={() => setIsMTTRModalOpen(false)} 
+        title="Mean Time to Resolve (MTTR)"
+        maxWidth="max-w-4xl"
+      >
+        <MTTDetails metricType="MTTR" />
       </Modal>
     </div>
   );
