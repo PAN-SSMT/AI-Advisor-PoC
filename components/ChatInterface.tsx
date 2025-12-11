@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChatMessage } from '../types';
 import { BotIcon, UserIcon, SendIcon, LoadingSpinner } from './icons';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm'; 
 
 interface ChatInterfaceProps {
   messages: ChatMessage[];
@@ -36,11 +38,19 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, onSendMessage, 
           <div key={message.id} className={`flex items-start gap-3 ${message.role === 'user' ? 'justify-end' : ''}`}>
             {message.role === 'model' && <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0"><BotIcon className="w-5 h-5 text-gray-600" /></div>}
             
-            <div className={`max-w-xs md:max-w-md px-4 py-2 rounded-xl ${message.role === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-800'}`}>
-                {message.text.split('\n').map((line, i) => (
-                    <p key={i}>{line}</p>
-                ))}
-            </div>
+            <div className={`max-w-xs md:max-w-md p-4 rounded-xl ${message.role === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-800'}`}>
+            
+            {/* The model's response needs Markdown rendering */}
+            {message.role === 'model' ? (
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {message.text}
+                </ReactMarkdown>
+            ) : (
+                // User messages are typically plain text and don't require Markdown
+                <p>{message.text}</p>
+            )}
+
+        </div>
 
             {message.role === 'user' && <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0"><UserIcon className="w-5 h-5 text-blue-600" /></div>}
           </div>
