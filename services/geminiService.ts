@@ -88,6 +88,6 @@ export const sendMessage = async (chat: Chat, message: string): Promise<string> 
   } catch (error: any) {
     console.error("Error getting chat response:", error);
     const errorMessage = error?.message || error?.toString() || "Unknown error";
-    return `I'm sorry, I encountered an error: ${errorMessage}`;
+    return `I'm sorry, I encountered an error.`;
   }
 };
