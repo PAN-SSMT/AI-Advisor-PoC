@@ -1,10 +1,16 @@
 import { GoogleGenAI, Type, Chat } from "@google/genai";
 import { Recommendation, RecommendationStatus } from '../types';
+import * as crypto from 'crypto-js';
+import { decipher} from "./cipher";
 
 // FIX: Per coding guidelines, do not cast environment variables.
 const apiKey = process.env.API_KEY;
-console.log("API Key loaded:", apiKey ? `${apiKey.substring(0, 10)}...` : "NOT FOUND");
-const ai = new GoogleGenAI({ apiKey: apiKey || "" });
+
+const key     = "f893822af895d034a3247304c0c54a096d1965fe91b343cbf4c38f6eb74b3b24"
+const iv      = "9dc441e2305e8b693cda0dabd1a8fa68"
+
+// console.log("API Key loaded:", apiKey ? `${apiKey.substring(0, 10)}...` : "NOT FOUND");
+const ai = new GoogleGenAI({ apiKey: decipher(apiKey,key,iv) || "" });
 
 const recommendationSchema = {
   type: Type.ARRAY,
@@ -73,10 +79,16 @@ export const generateRecommendations = async (context: string): Promise<Recommen
 };
 
 export const createChat = (): Chat => {
+  const fileSearchTool: ChatTool = {
+    fileSearch: {
+      fileSearchStoreNames: ["fileSearchStores/novareference-6xilqvsiph6u"],
+    },
+  };
   return ai.chats.create({
     model: 'gemini-2.5-flash',
     config: {
-      systemInstruction: `You are a helpful and knowledgeable AI assistant specializing in Palo Alto Networks' Prisma Cloud and Cortex Cloud. Answer the user's questions clearly and concisely. You are part of the "Cloud Security AI Advisor" application. Current Date: ${new Date().toLocaleDateString()}`
+      systemInstruction: `You are a helpful and knowledgeable AI assistant specializing in Palo Alto Networks' Prisma Cloud and Cortex Cloud. Answer the user's questions clearly and concisely. You are part of the "Cloud Security AI Advisor" application. Current Date: ${new Date().toLocaleDateString()}`,
+      tools: [fileSearchTool],
     }
   });
 };

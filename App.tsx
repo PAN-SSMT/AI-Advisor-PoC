@@ -312,10 +312,10 @@ const App: React.FC = () => {
     <div className="flex flex-col h-screen w-screen text-gray-900">
       <header className="p-4 md:px-8 md:py-5 border-b border-gray-200 bg-white shadow-sm flex-shrink-0 flex justify-between items-center">
         <div>
-          <img src="./assets/nova-logo.png" alt="NOVA - Next-Gen Operations & Virtual Advisor" className="h-[90px] -translate-y-[6%]" />
+          <img src="/AI-Advisor-PoC/nova-logo.png" alt="NOVA - Next-Gen Operations & Virtual Advisor" className="h-[90px] -translate-y-[6%]" />
         </div>
         <div className="text-right">
-          <img src="./assets/PaloAltoLogo.png" alt="Palo Alto Networks" className="h-[70px]" />
+          <img src="/AI-Advisor-PoC/PaloAltoLogo.png" alt="Palo Alto Networks" className="h-[70px]" />
           <p className="text-gray-900 -mt-1 text-[18px] font-medium pr-[6%]">Technical Services</p>
         </div>
       </header>
