@@ -41,17 +41,17 @@ const SortDropdown: React.FC<{
   sortRef: React.RefObject<HTMLDivElement>;
 }> = ({ isOpen, setIsOpen, setSortBy, sortRef }) => (
     <div className="relative" ref={sortRef}>
-        <button onClick={() => setIsOpen(p => !p)} className="flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-800">
+        <button onClick={() => setIsOpen(p => !p)} className="flex items-center gap-1 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
             <span className="text-sm">Sort</span>
             <ChevronDownIcon className="w-3 h-3" />
         </button>
         {isOpen && (
-            <div className="absolute right-0 mt-2 w-32 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
+            <div className="absolute right-0 mt-2 w-32 origin-top-right bg-white dark:bg-gray-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-gray-700 focus:outline-none z-10">
                 <div className="py-1">
-                    <button onClick={() => { setSortBy('risk'); setIsOpen(false); }} className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    <button onClick={() => { setSortBy('risk'); setIsOpen(false); }} className="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                         By Risk
                     </button>
-                    <button onClick={() => { setSortBy('effort'); setIsOpen(false); }} className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    <button onClick={() => { setSortBy('effort'); setIsOpen(false); }} className="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                         By Effort
                     </button>
                 </div>
@@ -99,10 +99,10 @@ const RecommendedActionsWidget: React.FC<RecommendedActionsWidgetProps> = ({
   const sortedImplemented = sortRecommendations(implementedRecommendations, implementedSortBy);
 
   const renderActionItems = (fullWidth: boolean) => (
-      <div className={`flex flex-col min-h-0 border-gray-200 ${fullWidth ? 'w-full' : 'w-full lg:w-[60%] border-b lg:border-b-0 lg:border-r'}`}>
+      <div className={`flex flex-col min-h-0 border-gray-200 dark:border-gray-700 ${fullWidth ? 'w-full' : 'w-full lg:w-[60%] border-b lg:border-b-0 lg:border-r'}`}>
           {viewMode === 'all' && (
-            <div className="p-4 pb-2 bg-gray-50 border-b border-gray-100 flex-shrink-0 flex justify-between items-center">
-                <h4 className="text-sm font-semibold text-gray-600 uppercase tracking-wider">Action Items</h4>
+            <div className="p-4 pb-2 bg-gray-50 dark:bg-gray-900 border-b border-gray-100 dark:border-gray-700 flex-shrink-0 flex justify-between items-center">
+                <h4 className="text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">Action Items</h4>
                 <div className="mr-8">
                     <div className="flex items-center gap-6">
                         <SortDropdown 
@@ -115,7 +115,7 @@ const RecommendedActionsWidget: React.FC<RecommendedActionsWidgetProps> = ({
                           <button
                               onClick={onOpenPendingModal}
                               title="View all action items"
-                              className="p-1 text-blue-600 hover:text-blue-800 hover:bg-gray-100 rounded-full transition-colors"
+                              className="p-1 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
                               aria-label="View all action items"
                           >
                               <NewWindowIcon className="w-4 h-4" />
@@ -125,9 +125,9 @@ const RecommendedActionsWidget: React.FC<RecommendedActionsWidgetProps> = ({
                 </div>
             </div>
           )}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
               {sortedPending.length === 0 ? (
-                  <div className="text-center py-10 text-gray-500">
+                  <div className="text-center py-10 text-gray-500 dark:text-gray-400">
                       <p>No pending recommendations.</p>
                   </div>
               ) : (
@@ -140,10 +140,10 @@ const RecommendedActionsWidget: React.FC<RecommendedActionsWidgetProps> = ({
   );
 
   const renderImplementedItems = (fullWidth: boolean) => (
-      <div className={`flex flex-col min-h-0 bg-gray-50/30 ${fullWidth ? 'w-full' : 'flex-1'}`}>
+      <div className={`flex flex-col min-h-0 bg-gray-50/30 dark:bg-gray-900/30 ${fullWidth ? 'w-full' : 'flex-1'}`}>
            {viewMode === 'all' && (
-             <div className="p-4 pb-2 bg-gray-50 border-b border-gray-100 flex-shrink-0 flex justify-between items-center">
-                 <h4 className="text-sm font-semibold text-gray-600 uppercase tracking-wider">
+             <div className="p-4 pb-2 bg-gray-50 dark:bg-gray-900 border-b border-gray-100 dark:border-gray-700 flex-shrink-0 flex justify-between items-center">
+                 <h4 className="text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                     Implemented Actions
                  </h4>
                  <div className="mr-8">
@@ -158,7 +158,7 @@ const RecommendedActionsWidget: React.FC<RecommendedActionsWidgetProps> = ({
                         <button
                             onClick={onOpenImplementedModal}
                             title="View all implemented actions"
-                            className="p-1 text-blue-600 hover:text-blue-800 hover:bg-gray-100 rounded-full transition-colors"
+                            className="p-1 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
                             aria-label="View all implemented actions"
                         >
                             <NewWindowIcon className="w-4 h-4" />
@@ -168,9 +168,9 @@ const RecommendedActionsWidget: React.FC<RecommendedActionsWidgetProps> = ({
                  </div>
             </div>
            )}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
               {sortedImplemented.length === 0 ? (
-                  <div className="text-center py-10 text-gray-400 text-sm">
+                  <div className="text-center py-10 text-gray-400 dark:text-gray-500 text-sm">
                       <p>No actions implemented yet.</p>
                   </div>
               ) : (
@@ -189,11 +189,11 @@ const RecommendedActionsWidget: React.FC<RecommendedActionsWidgetProps> = ({
   );
 
   return (
-    <section className="flex-1 bg-white rounded-lg shadow-sm border border-gray-200 flex flex-col min-h-0 overflow-hidden">
+    <section className="flex-1 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col min-h-0 overflow-hidden transition-colors duration-200">
       {/* Widget Header - Hidden in modal views */}
       {viewMode === 'all' && (
-        <div className="p-6 pb-2 flex justify-between items-center flex-shrink-0 border-b border-gray-100">
-          <h3 className="text-lg font-semibold text-gray-800">
+        <div className="p-6 pb-2 flex justify-between items-center flex-shrink-0 border-b border-gray-100 dark:border-gray-700">
+          <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
             Recommended Actions
           </h3>
         </div>
@@ -202,7 +202,7 @@ const RecommendedActionsWidget: React.FC<RecommendedActionsWidgetProps> = ({
       {isLoadingRecs ? (
         <div className="flex-1 flex items-center justify-center p-6">
           <LoadingSpinner className="w-8 h-8 text-blue-500" />
-          <span className="ml-3 text-gray-500">Generating Recommendations...</span>
+          <span className="ml-3 text-gray-500 dark:text-gray-400">Generating Recommendations...</span>
         </div>
       ) : (
         <div className="flex-1 flex flex-col lg:flex-row min-h-0">

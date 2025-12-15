@@ -24,7 +24,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
       <svg className="w-full h-full" viewBox={`0 0 ${size} ${size}`}>
         {/* Background circle */}
         <circle
-          className="text-gray-200"
+          className="text-gray-200 dark:text-gray-600"
           stroke="currentColor"
           strokeWidth={strokeWidth}
           fill="transparent"
@@ -52,7 +52,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
         />
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">
-        <span className={`${textSize} font-bold text-gray-800`}>{percentage}%</span>
+        <span className={`${textSize} font-bold text-gray-800 dark:text-white`}>{percentage}%</span>
       </div>
     </div>
   );

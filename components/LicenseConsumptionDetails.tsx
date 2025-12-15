@@ -44,20 +44,20 @@ const LicenseConsumptionDetails: React.FC = () => {
         {licenses.map((license) => {
           const percentage = getUsagePercentage(license.consumed, license.allocated);
           return (
-            <div key={license.name} className="border-b border-gray-200 pb-4 last:border-b-0">
+            <div key={license.name} className="border-b border-gray-200 dark:border-gray-700 pb-4 last:border-b-0">
               <div className="flex justify-between items-center mb-2">
-                <h4 className="font-medium text-gray-800">{license.name}</h4>
-                <span className="text-sm text-gray-600">
+                <h4 className="font-medium text-gray-800 dark:text-white">{license.name}</h4>
+                <span className="text-sm text-gray-600 dark:text-gray-400">
                   {license.consumed.toLocaleString()} / {license.allocated.toLocaleString()} {license.unit}
                 </span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
                 <div
                   className={`h-2 rounded-full ${getUsageColor(percentage)}`}
                   style={{ width: `${percentage}%` }}
                 ></div>
               </div>
-              <div className="text-right text-xs text-gray-500 mt-1">{percentage}% utilized</div>
+              <div className="text-right text-xs text-gray-500 dark:text-gray-400 mt-1">{percentage}% utilized</div>
             </div>
           );
         })}

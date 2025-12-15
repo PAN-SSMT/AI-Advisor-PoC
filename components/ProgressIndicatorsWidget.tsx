@@ -12,15 +12,15 @@ const ProgressIndicatorsWidget: React.FC<ProgressIndicatorsWidgetProps> = ({
   onOpenScaleOptimizeModal,
 }) => {
   return (
-    <div className="bg-white px-4 py-6 rounded-lg shadow-sm border border-gray-200 flex items-center justify-evenly gap-6 h-full">
+    <div className="bg-white dark:bg-gray-800 px-4 py-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex items-center justify-evenly gap-6 h-full transition-colors duration-200">
       {/* Deployment Dial */}
       <div className="flex flex-col items-center justify-center flex-1">
         <div className="flex items-center gap-2 mb-4">
-          <h4 className="text-base font-semibold text-gray-800">Deployment</h4>
+          <h4 className="text-base font-semibold text-gray-800 dark:text-white">Deployment</h4>
           <button
             onClick={onOpenDeploymentModal}
             title="Open deployment details"
-            className="p-1 text-blue-600 hover:text-blue-800 hover:bg-gray-100 rounded-full transition-colors"
+            className="p-1 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
             aria-label="Open deployment details"
           >
             <NewWindowIcon className="w-4 h-4" />
@@ -32,11 +32,11 @@ const ProgressIndicatorsWidget: React.FC<ProgressIndicatorsWidgetProps> = ({
       {/* Scale & Optimize Dial */}
       <div className="flex flex-col items-center justify-center flex-1">
         <div className="flex items-center gap-2 mb-4">
-          <h4 className="text-base font-semibold text-gray-800">Scale & Optimize</h4>
+          <h4 className="text-base font-semibold text-gray-800 dark:text-white">Scale & Optimize</h4>
           <button
             onClick={onOpenScaleOptimizeModal}
             title="Open scale & optimize details"
-            className="p-1 text-blue-600 hover:text-blue-800 hover:bg-gray-100 rounded-full transition-colors"
+            className="p-1 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
             aria-label="Open scale and optimize details"
           >
             <NewWindowIcon className="w-4 h-4" />

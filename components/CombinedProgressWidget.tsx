@@ -37,7 +37,7 @@ const ChangeIndicator: React.FC<{
         <ArrowDownIcon className="w-3 h-3 text-green-500" />
       )}
     </span>
-    <span className="text-gray-400">({period})</span>
+    <span className="text-gray-400 dark:text-gray-500">({period})</span>
   </div>
 );
 
@@ -47,18 +47,18 @@ const TimeDisplay: React.FC<{ hours: string; minutes: string; seconds: string }>
 }) => (
   <div className="flex items-end justify-center gap-0.5">
     <div className="flex flex-col items-center">
-      <span className="text-[10px] text-gray-400 font-medium">h</span>
-      <span className="text-lg font-semibold text-gray-800 font-mono">{hours}</span>
+      <span className="text-[10px] text-gray-400 dark:text-gray-500 font-medium">h</span>
+      <span className="text-lg font-semibold text-gray-800 dark:text-gray-200 font-mono">{hours}</span>
     </div>
-    <span className="text-lg font-semibold text-gray-400 font-mono pb-[1px]">:</span>
+    <span className="text-lg font-semibold text-gray-400 dark:text-gray-500 font-mono pb-[1px]">:</span>
     <div className="flex flex-col items-center">
-      <span className="text-[10px] text-gray-400 font-medium">m</span>
-      <span className="text-lg font-semibold text-gray-800 font-mono">{minutes}</span>
+      <span className="text-[10px] text-gray-400 dark:text-gray-500 font-medium">m</span>
+      <span className="text-lg font-semibold text-gray-800 dark:text-gray-200 font-mono">{minutes}</span>
     </div>
-    <span className="text-lg font-semibold text-gray-400 font-mono pb-[1px]">:</span>
+    <span className="text-lg font-semibold text-gray-400 dark:text-gray-500 font-mono pb-[1px]">:</span>
     <div className="flex flex-col items-center">
-      <span className="text-[10px] text-gray-400 font-medium">s</span>
-      <span className="text-lg font-semibold text-gray-800 font-mono">{seconds}</span>
+      <span className="text-[10px] text-gray-400 dark:text-gray-500 font-medium">s</span>
+      <span className="text-lg font-semibold text-gray-800 dark:text-gray-200 font-mono">{seconds}</span>
     </div>
   </div>
 );
@@ -77,11 +77,11 @@ const MetricSection: React.FC<{
 }) => (
   <div className="flex-1 flex flex-col items-center relative">
     <div className="mb-1 relative">
-      <span className="text-base font-semibold text-gray-800">{label}</span>
+      <span className="text-base font-semibold text-gray-800 dark:text-gray-200">{label}</span>
       <button
         onClick={onOpenModal}
         title={`Open ${label} details`}
-        className="p-0.5 text-blue-600 hover:text-blue-800 hover:bg-gray-100 rounded transition-colors absolute -right-4 -top-1"
+        className="p-0.5 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors absolute -right-4 -top-1"
         aria-label={`Open ${label} details`}
       >
         <NewWindowIcon className="w-3 h-3" />
@@ -122,7 +122,7 @@ const CombinedProgressWidget: React.FC<CombinedProgressWidgetProps> = ({
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 transition-colors duration-200">
       <div className="flex items-start justify-between">
         <MetricSection label="MTTD" {...metrics.mttd} onOpenModal={onOpenMTTDModal} />
         <MetricSection label="MTTC" {...metrics.mttc} onOpenModal={onOpenMTTCModal} />

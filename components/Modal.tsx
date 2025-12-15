@@ -37,19 +37,19 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, headerC
 
   return ReactDOM.createPortal(
     <div 
-      className="fixed inset-0 bg-gray-800 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center p-4" 
+      className="fixed inset-0 bg-gray-800 bg-opacity-50 dark:bg-opacity-70 overflow-y-auto h-full w-full z-50 flex items-center justify-center p-4" 
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
     >
       <div 
-        className={`relative mx-auto w-full ${maxWidth || 'max-w-5xl'} shadow-lg rounded-2xl bg-white`}
+        className={`relative mx-auto w-full ${maxWidth || 'max-w-5xl'} shadow-lg rounded-2xl bg-white dark:bg-gray-900 transition-colors duration-200`}
         onClick={e => e.stopPropagation()}
       >
-        <div className={`flex justify-between items-center ${headerPaddingClass || 'p-5'} ${hideBorder ? '' : 'border-b border-gray-200'}`}>
+        <div className={`flex justify-between items-center ${headerPaddingClass || 'p-5'} ${hideBorder ? '' : 'border-b border-gray-200 dark:border-gray-700'}`}>
           <div className="flex items-center gap-4">
-            <h3 id="modal-title" className="text-xl font-semibold text-gray-900">{title}</h3>
+            <h3 id="modal-title" className="text-xl font-semibold text-gray-900 dark:text-gray-100">{title}</h3>
             {titleRight}
           </div>
           {headerCenter && (
@@ -61,7 +61,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, headerC
             {headerRight}
             <button 
             onClick={onClose} 
-            className="p-1.5 rounded-full text-gray-400 hover:bg-gray-200 hover:text-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="p-1.5 rounded-full text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-600 dark:hover:text-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             aria-label="Close modal"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -70,7 +70,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, headerC
             </button>
           </div>
         </div>
-        <div className="max-h-[80vh] overflow-y-auto">
+        <div className="max-h-[80vh] overflow-y-auto bg-white dark:bg-gray-900">
           {children}
         </div>
       </div>

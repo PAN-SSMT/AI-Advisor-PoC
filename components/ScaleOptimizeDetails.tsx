@@ -28,7 +28,7 @@ const scaleOptimizeSteps = [
 const ScaleOptimizeDetails: React.FC = () => {
   return (
     <div className="p-6 md:p-8">
-      <h1 className="text-2xl font-bold text-gray-800 mb-2">Scale & Optimize</h1>
+      <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">Scale & Optimize</h1>
       <hr className="mb-8 border-yellow-500 border-2 w-24" />
       
       <div className="space-y-8">
@@ -40,16 +40,16 @@ const ScaleOptimizeDetails: React.FC = () => {
               </PaloAltoIcon>
             </div>
             <div className="flex-grow">
-              <p className="font-semibold text-lg text-gray-800 leading-tight">{step.title}</p>
+              <p className="font-semibold text-lg text-gray-800 dark:text-gray-200 leading-tight">{step.title}</p>
             </div>
             <div className="flex-shrink-0 flex gap-8 text-center">
               <div>
-                <p className="text-sm font-medium text-gray-500">Goal</p>
-                <p className="text-2xl font-bold text-gray-800 mt-1">{step.goal}{step.unit}</p>
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Goal</p>
+                <p className="text-2xl font-bold text-gray-800 dark:text-white mt-1">{step.goal}{step.unit}</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Actual</p>
-                <p className={`text-2xl font-bold mt-1 ${step.actual >= step.goal ? 'text-green-600' : 'text-red-600'}`}>
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Actual</p>
+                <p className={`text-2xl font-bold mt-1 ${step.actual >= step.goal ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
                   {step.actual}{step.unit}
                 </p>
               </div>

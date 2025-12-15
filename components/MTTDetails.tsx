@@ -23,7 +23,7 @@ const TrendChart: React.FC<{ data: number[]; color: string; label: string }> = (
 
   return (
     <div className="flex flex-col">
-      <span className="text-xs text-gray-500 mb-1">{label}</span>
+      <span className="text-xs text-gray-500 dark:text-gray-400 mb-1">{label}</span>
       <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-24">
         <polyline
           fill="none"
@@ -41,7 +41,7 @@ const TrendChart: React.FC<{ data: number[]; color: string; label: string }> = (
           );
         })}
       </svg>
-      <div className="flex justify-between text-[10px] text-gray-400 mt-1">
+      <div className="flex justify-between text-[10px] text-gray-400 dark:text-gray-500 mt-1">
         <span>{is30Day ? '30d ago' : '7d ago'}</span>
         <span>Today</span>
       </div>
@@ -52,12 +52,12 @@ const TrendChart: React.FC<{ data: number[]; color: string; label: string }> = (
 const MetricCard: React.FC<{ title: string; value: string; subtitle?: string; trend?: 'up' | 'down'; trendValue?: string }> = ({
   title, value, subtitle, trend, trendValue
 }) => (
-  <div className="bg-gray-50 rounded-lg p-4">
-    <p className="text-sm text-gray-500 mb-1">{title}</p>
-    <p className="text-2xl font-bold text-gray-900">{value}</p>
-    {subtitle && <p className="text-xs text-gray-400 mt-1">{subtitle}</p>}
+  <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+    <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">{title}</p>
+    <p className="text-2xl font-bold text-gray-900 dark:text-white">{value}</p>
+    {subtitle && <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">{subtitle}</p>}
     {trend && trendValue && (
-      <div className={`flex items-center gap-1 mt-2 text-sm ${trend === 'down' ? 'text-green-600' : 'text-red-600'}`}>
+      <div className={`flex items-center gap-1 mt-2 text-sm ${trend === 'down' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
         {trend === 'down' ? (
           <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L10 13.586l3.293-3.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -80,22 +80,22 @@ const MTTDDetails: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header with current value */}
-      <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
+      <div className="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 rounded-xl p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-lg font-semibold text-blue-900">Mean Time to Detect (MTTD)</h3>
-            <p className="text-sm text-blue-700 mt-1">Average time to identify a security threat or incident</p>
+            <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100">Mean Time to Detect (MTTD)</h3>
+            <p className="text-sm text-blue-700 dark:text-blue-300 mt-1">Average time to identify a security threat or incident</p>
           </div>
           <div className="text-right">
-            <p className="text-4xl font-bold text-blue-600">00:27:23</p>
-            <p className="text-sm text-blue-500">Current Average</p>
+            <p className="text-4xl font-bold text-blue-600 dark:text-blue-400">00:27:23</p>
+            <p className="text-sm text-blue-500 dark:text-blue-400">Current Average</p>
           </div>
         </div>
       </div>
 
       {/* Trend Graphs */}
-      <div className="bg-white border border-gray-200 rounded-xl p-6">
-        <h4 className="font-semibold text-gray-900 mb-4">Trend Analysis</h4>
+      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6">
+        <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Trend Analysis</h4>
         <div className="grid grid-cols-2 gap-6">
           <div>
             <TrendChart data={trendData7d} color="#3B82F6" label="7-Day Trend (minutes)" />
@@ -116,67 +116,67 @@ const MTTDDetails: React.FC = () => {
       </div>
 
       {/* Detection Breakdown */}
-      <div className="bg-white border border-gray-200 rounded-xl p-6">
-        <h4 className="font-semibold text-gray-900 mb-4">Detection Sources (Palo Alto Networks)</h4>
+      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6">
+        <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Detection Sources (Palo Alto Networks)</h4>
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-              <span className="text-sm text-gray-700">Prisma Cloud CSPM Alerts</span>
+              <span className="text-sm text-gray-700 dark:text-gray-300">Prisma Cloud CSPM Alerts</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-32 bg-gray-200 rounded-full h-2">
+              <div className="w-32 bg-gray-200 dark:bg-gray-600 rounded-full h-2">
                 <div className="bg-blue-500 h-2 rounded-full" style={{ width: '35%' }}></div>
               </div>
-              <span className="text-sm text-gray-600">35%</span>
+              <span className="text-sm text-gray-600 dark:text-gray-400">35%</span>
             </div>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span className="text-sm text-gray-700">Cortex XDR Endpoint Detection</span>
+              <span className="text-sm text-gray-700 dark:text-gray-300">Cortex XDR Endpoint Detection</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-32 bg-gray-200 rounded-full h-2">
+              <div className="w-32 bg-gray-200 dark:bg-gray-600 rounded-full h-2">
                 <div className="bg-green-500 h-2 rounded-full" style={{ width: '28%' }}></div>
               </div>
-              <span className="text-sm text-gray-600">28%</span>
+              <span className="text-sm text-gray-600 dark:text-gray-400">28%</span>
             </div>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-              <span className="text-sm text-gray-700">Prisma Cloud CWP Runtime</span>
+              <span className="text-sm text-gray-700 dark:text-gray-300">Prisma Cloud CWP Runtime</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-32 bg-gray-200 rounded-full h-2">
+              <div className="w-32 bg-gray-200 dark:bg-gray-600 rounded-full h-2">
                 <div className="bg-purple-500 h-2 rounded-full" style={{ width: '22%' }}></div>
               </div>
-              <span className="text-sm text-gray-600">22%</span>
+              <span className="text-sm text-gray-600 dark:text-gray-400">22%</span>
             </div>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-              <span className="text-sm text-gray-700">XSOAR Automated Detection</span>
+              <span className="text-sm text-gray-700 dark:text-gray-300">XSOAR Automated Detection</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-32 bg-gray-200 rounded-full h-2">
+              <div className="w-32 bg-gray-200 dark:bg-gray-600 rounded-full h-2">
                 <div className="bg-orange-500 h-2 rounded-full" style={{ width: '15%' }}></div>
               </div>
-              <span className="text-sm text-gray-600">15%</span>
+              <span className="text-sm text-gray-600 dark:text-gray-400">15%</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Formula & Calculation */}
-      <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
-        <h4 className="font-semibold text-gray-900 mb-3">How MTTD is Calculated</h4>
-        <div className="bg-white rounded-lg p-4 font-mono text-sm text-gray-700 mb-4">
+      <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-6">
+        <h4 className="font-semibold text-gray-900 dark:text-white mb-3">How MTTD is Calculated</h4>
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 font-mono text-sm text-gray-700 dark:text-gray-300 mb-4">
           MTTD = Σ(Detection Time - Incident Start Time) / Total Incidents
         </div>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-gray-600 dark:text-gray-400">
           Detection time is measured from when an attack or anomaly begins to when Prisma Cloud, Cortex XDR, 
           or other Palo Alto Networks security tools generate the first alert. Lower MTTD values indicate 
           faster threat identification, reducing potential damage from undetected attacks.
@@ -193,22 +193,22 @@ const MTTCDetails: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header with current value */}
-      <div className="bg-green-50 border border-green-200 rounded-xl p-6">
+      <div className="bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 rounded-xl p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-lg font-semibold text-green-900">Mean Time to Contain (MTTC)</h3>
-            <p className="text-sm text-green-700 mt-1">Average time to isolate and stop threat propagation</p>
+            <h3 className="text-lg font-semibold text-green-900 dark:text-green-100">Mean Time to Contain (MTTC)</h3>
+            <p className="text-sm text-green-700 dark:text-green-300 mt-1">Average time to isolate and stop threat propagation</p>
           </div>
           <div className="text-right">
-            <p className="text-4xl font-bold text-green-600">00:07:12</p>
-            <p className="text-sm text-green-500">Current Average</p>
+            <p className="text-4xl font-bold text-green-600 dark:text-green-400">00:07:12</p>
+            <p className="text-sm text-green-500 dark:text-green-400">Current Average</p>
           </div>
         </div>
       </div>
 
       {/* Trend Graphs */}
-      <div className="bg-white border border-gray-200 rounded-xl p-6">
-        <h4 className="font-semibold text-gray-900 mb-4">Trend Analysis</h4>
+      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6">
+        <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Trend Analysis</h4>
         <div className="grid grid-cols-2 gap-6">
           <div>
             <TrendChart data={trendData7d} color="#22C55E" label="7-Day Trend (minutes)" />
@@ -229,63 +229,63 @@ const MTTCDetails: React.FC = () => {
       </div>
 
       {/* Containment Methods */}
-      <div className="bg-white border border-gray-200 rounded-xl p-6">
-        <h4 className="font-semibold text-gray-900 mb-4">Containment Actions (Palo Alto Networks)</h4>
+      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6">
+        <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Containment Actions (Palo Alto Networks)</h4>
         <div className="grid grid-cols-2 gap-4">
-          <div className="bg-gray-50 rounded-lg p-4">
+          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
             <div className="flex items-center gap-2 mb-2">
-              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                <svg className="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                <svg className="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
               </div>
-              <span className="font-medium text-gray-900">Cortex XDR Isolation</span>
+              <span className="font-medium text-gray-900 dark:text-white">Cortex XDR Isolation</span>
             </div>
-            <p className="text-sm text-gray-600">Endpoint quarantine and network isolation via Cortex XDR agents</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Endpoint quarantine and network isolation via Cortex XDR agents</p>
           </div>
-          <div className="bg-gray-50 rounded-lg p-4">
+          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
             <div className="flex items-center gap-2 mb-2">
-              <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                <svg className="w-4 h-4 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
               </div>
-              <span className="font-medium text-gray-900">Prisma Cloud Remediation</span>
+              <span className="font-medium text-gray-900 dark:text-white">Prisma Cloud Remediation</span>
             </div>
-            <p className="text-sm text-gray-600">Auto-remediation of misconfigurations and policy violations</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Auto-remediation of misconfigurations and policy violations</p>
           </div>
-          <div className="bg-gray-50 rounded-lg p-4">
+          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
             <div className="flex items-center gap-2 mb-2">
-              <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                <svg className="w-4 h-4 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                <svg className="w-4 h-4 text-purple-600 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
               </div>
-              <span className="font-medium text-gray-900">XSOAR Playbooks</span>
+              <span className="font-medium text-gray-900 dark:text-white">XSOAR Playbooks</span>
             </div>
-            <p className="text-sm text-gray-600">Automated response workflows for rapid containment</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Automated response workflows for rapid containment</p>
           </div>
-          <div className="bg-gray-50 rounded-lg p-4">
+          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
             <div className="flex items-center gap-2 mb-2">
-              <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
-                <svg className="w-4 h-4 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="w-8 h-8 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
+                <svg className="w-4 h-4 text-orange-600 dark:text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
                 </svg>
               </div>
-              <span className="font-medium text-gray-900">Network Segmentation</span>
+              <span className="font-medium text-gray-900 dark:text-white">Network Segmentation</span>
             </div>
-            <p className="text-sm text-gray-600">Dynamic microsegmentation via Prisma Cloud</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Dynamic microsegmentation via Prisma Cloud</p>
           </div>
         </div>
       </div>
 
       {/* Formula & Calculation */}
-      <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
-        <h4 className="font-semibold text-gray-900 mb-3">How MTTC is Calculated</h4>
-        <div className="bg-white rounded-lg p-4 font-mono text-sm text-gray-700 mb-4">
+      <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-6">
+        <h4 className="font-semibold text-gray-900 dark:text-white mb-3">How MTTC is Calculated</h4>
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 font-mono text-sm text-gray-700 dark:text-gray-300 mb-4">
           MTTC = Σ(Containment Time - Detection Time) / Total Incidents
         </div>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-gray-600 dark:text-gray-400">
           Containment time measures from initial detection to when the threat is isolated and prevented 
           from spreading. This includes actions like endpoint isolation, network segmentation, 
           credential revocation, and workload quarantine through Palo Alto Networks security stack.
@@ -302,22 +302,22 @@ const MTTRDetails: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header with current value */}
-      <div className="bg-purple-50 border border-purple-200 rounded-xl p-6">
+      <div className="bg-purple-50 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-700 rounded-xl p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-lg font-semibold text-purple-900">Mean Time to Resolve (MTTR)</h3>
-            <p className="text-sm text-purple-700 mt-1">Average time to fully remediate and close an incident</p>
+            <h3 className="text-lg font-semibold text-purple-900 dark:text-purple-100">Mean Time to Resolve (MTTR)</h3>
+            <p className="text-sm text-purple-700 dark:text-purple-300 mt-1">Average time to fully remediate and close an incident</p>
           </div>
           <div className="text-right">
-            <p className="text-4xl font-bold text-purple-600">02:23:12</p>
-            <p className="text-sm text-purple-500">Current Average</p>
+            <p className="text-4xl font-bold text-purple-600 dark:text-purple-400">02:23:12</p>
+            <p className="text-sm text-purple-500 dark:text-purple-400">Current Average</p>
           </div>
         </div>
       </div>
 
       {/* Trend Graphs */}
-      <div className="bg-white border border-gray-200 rounded-xl p-6">
-        <h4 className="font-semibold text-gray-900 mb-4">Trend Analysis</h4>
+      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6">
+        <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Trend Analysis</h4>
         <div className="grid grid-cols-2 gap-6">
           <div>
             <TrendChart data={trendData7d} color="#A855F7" label="7-Day Trend (minutes)" />
@@ -338,42 +338,42 @@ const MTTRDetails: React.FC = () => {
       </div>
 
       {/* Resolution Phases */}
-      <div className="bg-white border border-gray-200 rounded-xl p-6">
-        <h4 className="font-semibold text-gray-900 mb-4">Resolution Timeline Breakdown</h4>
+      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6">
+        <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Resolution Timeline Breakdown</h4>
         <div className="space-y-4">
           <div>
             <div className="flex justify-between mb-1">
-              <span className="text-sm font-medium text-gray-700">Investigation & Root Cause Analysis</span>
-              <span className="text-sm text-gray-500">45 min avg</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Investigation & Root Cause Analysis</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400">45 min avg</span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-3">
+            <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-3">
               <div className="bg-blue-500 h-3 rounded-full" style={{ width: '32%' }}></div>
             </div>
           </div>
           <div>
             <div className="flex justify-between mb-1">
-              <span className="text-sm font-medium text-gray-700">Remediation & Patching</span>
-              <span className="text-sm text-gray-500">58 min avg</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Remediation & Patching</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400">58 min avg</span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-3">
+            <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-3">
               <div className="bg-green-500 h-3 rounded-full" style={{ width: '41%' }}></div>
             </div>
           </div>
           <div>
             <div className="flex justify-between mb-1">
-              <span className="text-sm font-medium text-gray-700">Verification & Testing</span>
-              <span className="text-sm text-gray-500">25 min avg</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Verification & Testing</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400">25 min avg</span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-3">
+            <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-3">
               <div className="bg-purple-500 h-3 rounded-full" style={{ width: '18%' }}></div>
             </div>
           </div>
           <div>
             <div className="flex justify-between mb-1">
-              <span className="text-sm font-medium text-gray-700">Documentation & Closure</span>
-              <span className="text-sm text-gray-500">15 min avg</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Documentation & Closure</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400">15 min avg</span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-3">
+            <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-3">
               <div className="bg-orange-500 h-3 rounded-full" style={{ width: '9%' }}></div>
             </div>
           </div>
@@ -381,47 +381,47 @@ const MTTRDetails: React.FC = () => {
       </div>
 
       {/* Resolution Tools */}
-      <div className="bg-white border border-gray-200 rounded-xl p-6">
-        <h4 className="font-semibold text-gray-900 mb-4">Resolution Enablers (Palo Alto Networks)</h4>
+      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6">
+        <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Resolution Enablers (Palo Alto Networks)</h4>
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div className="flex items-start gap-3">
             <div className="w-2 h-2 bg-blue-500 rounded-full mt-1.5"></div>
             <div>
-              <p className="font-medium text-gray-900">Prisma Cloud Alerts</p>
-              <p className="text-gray-500">Contextual alerts with remediation guidance</p>
+              <p className="font-medium text-gray-900 dark:text-white">Prisma Cloud Alerts</p>
+              <p className="text-gray-500 dark:text-gray-400">Contextual alerts with remediation guidance</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
             <div className="w-2 h-2 bg-green-500 rounded-full mt-1.5"></div>
             <div>
-              <p className="font-medium text-gray-900">Cortex XSOAR</p>
-              <p className="text-gray-500">Automated playbooks for common incidents</p>
+              <p className="font-medium text-gray-900 dark:text-white">Cortex XSOAR</p>
+              <p className="text-gray-500 dark:text-gray-400">Automated playbooks for common incidents</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
             <div className="w-2 h-2 bg-purple-500 rounded-full mt-1.5"></div>
             <div>
-              <p className="font-medium text-gray-900">Unit 42 Threat Intel</p>
-              <p className="text-gray-500">IOCs and remediation recommendations</p>
+              <p className="font-medium text-gray-900 dark:text-white">Unit 42 Threat Intel</p>
+              <p className="text-gray-500 dark:text-gray-400">IOCs and remediation recommendations</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
             <div className="w-2 h-2 bg-orange-500 rounded-full mt-1.5"></div>
             <div>
-              <p className="font-medium text-gray-900">Prisma Cloud IaC</p>
-              <p className="text-gray-500">Infrastructure fixes via code templates</p>
+              <p className="font-medium text-gray-900 dark:text-white">Prisma Cloud IaC</p>
+              <p className="text-gray-500 dark:text-gray-400">Infrastructure fixes via code templates</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Formula & Calculation */}
-      <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
-        <h4 className="font-semibold text-gray-900 mb-3">How MTTR is Calculated</h4>
-        <div className="bg-white rounded-lg p-4 font-mono text-sm text-gray-700 mb-4">
+      <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-6">
+        <h4 className="font-semibold text-gray-900 dark:text-white mb-3">How MTTR is Calculated</h4>
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 font-mono text-sm text-gray-700 dark:text-gray-300 mb-4">
           MTTR = Σ(Resolution Time - Detection Time) / Total Incidents
         </div>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-gray-600 dark:text-gray-400">
           Resolution time encompasses the entire incident lifecycle from detection to full remediation, 
           including investigation, containment, eradication, recovery, and lessons learned. 
           Palo Alto Networks tools like XSOAR and Prisma Cloud auto-remediation significantly reduce MTTR 

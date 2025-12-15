@@ -179,7 +179,28 @@ const MOCK_RECOMMENDATIONS: Recommendation[] = [
   }
 ];
 
+// Dark mode toggle icons
+const SunIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+  </svg>
+);
+
+const MoonIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+  </svg>
+);
+
 const App: React.FC = () => {
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    // Check localStorage for saved preference, default to false
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('nova-dark-mode');
+      return saved === 'true';
+    }
+    return false;
+  });
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
   const [isLoadingRecs, setIsLoadingRecs] = useState<boolean>(true);
   const [isLoadingChat, setIsLoadingChat] = useState<boolean>(false);
@@ -219,6 +240,16 @@ const App: React.FC = () => {
     setRecommendations(MOCK_RECOMMENDATIONS);
     setIsLoadingRecs(false);
   }, []);
+
+  // Apply dark mode class to document
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('nova-dark-mode', String(isDarkMode));
+  }, [isDarkMode]);
 
   useEffect(() => {
     fetchRecommendations();
@@ -309,18 +340,40 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen w-screen text-gray-900">
-      <header className="p-4 md:px-8 md:py-5 border-b border-gray-200 bg-white shadow-sm flex-shrink-0 flex justify-between items-center">
+    <div className="flex flex-col h-screen w-screen text-gray-900 dark:text-gray-100 transition-colors duration-200">
+      <header className="px-4 pt-[12px] pb-[11px] md:px-8 md:pt-[14px] md:pb-[13px] border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-black shadow-sm flex-shrink-0 flex justify-between items-center transition-colors duration-200">
         <div>
-          <img src="/AI-Advisor-PoC/nova-logo.png" alt="NOVA - Next-Gen Operations & Virtual Advisor" className="h-[90px] -translate-y-[6%]" />
+          <img 
+            src={isDarkMode ? "./public/nova-logo-dark.png" : "./public/nova-logo.png"} 
+            alt="NOVA - Next-Gen Operations & Virtual Advisor" 
+            className={`${isDarkMode ? 'h-[87px]' : 'h-[99px]'} -translate-y-[6%]`}
+          />
         </div>
-        <div className="text-right">
-          <img src="/AI-Advisor-PoC/PaloAltoLogo.png" alt="Palo Alto Networks" className="h-[70px]" />
-          <p className="text-gray-900 -mt-1 text-[18px] font-medium pr-[6%]">Technical Services</p>
+        <div className="flex items-center gap-6">
+          {/* Dark Mode Toggle */}
+          <button
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+            title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          >
+            {isDarkMode ? (
+              <SunIcon className="w-5 h-5 text-yellow-500" />
+            ) : (
+              <MoonIcon className="w-5 h-5 text-gray-600" />
+            )}
+          </button>
+          <div className="text-right">
+            <img 
+              src={isDarkMode ? "./public/PaloAltoLogoDark.png" : "./public/PaloAltoLogo.png"} 
+              alt="Palo Alto Networks" 
+              className="h-[74px]" 
+            />
+            <p className="text-gray-900 dark:text-gray-100 -mt-1 text-[18px] font-medium pr-[6%]">Technical Services</p>
+          </div>
         </div>
       </header>
       
-      <main className="flex flex-1 overflow-hidden bg-gray-50 p-3 md:p-4 gap-3 md:gap-4">
+      <main className="flex flex-1 overflow-hidden bg-gray-50 dark:bg-gray-900 p-3 md:p-4 gap-3 md:gap-4 transition-colors duration-200">
         {/* Left Column */}
         <div className="w-1/3 min-w-[350px] max-w-[450px] flex flex-col gap-3 md:gap-4">
             <CombinedProgressWidget 
@@ -385,7 +438,7 @@ const App: React.FC = () => {
         title="Support Cases"
         headerPaddingClass="py-5 pr-5 pl-10"
         headerCenter={
-          <button className="text-blue-600 hover:underline text-sm">
+          <button className="text-blue-600 dark:text-blue-400 hover:underline text-sm">
             Open New Support Case
           </button>
         }
@@ -423,7 +476,7 @@ const App: React.FC = () => {
         isOpen={isLastSessionModalOpen} 
         onClose={() => setIsLastSessionModalOpen(false)} 
         title="Last Session"
-        titleRight={<span className="text-gray-500 font-medium">{servicesPipelineData.lastSession.date}</span>}
+        titleRight={<span className="text-gray-500 dark:text-gray-400 font-medium">{servicesPipelineData.lastSession.date}</span>}
         hideBorder
         maxWidth="max-w-3xl"
       >
@@ -433,7 +486,7 @@ const App: React.FC = () => {
         isOpen={isNextSessionModalOpen} 
         onClose={() => setIsNextSessionModalOpen(false)} 
         title="Next Session"
-        titleRight={<span className="text-gray-500 font-medium">{servicesPipelineData.nextSession.date}</span>}
+        titleRight={<span className="text-gray-500 dark:text-gray-400 font-medium">{servicesPipelineData.nextSession.date}</span>}
         hideBorder
         maxWidth="max-w-3xl"
       >

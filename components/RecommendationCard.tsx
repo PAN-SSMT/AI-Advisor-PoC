@@ -9,16 +9,16 @@ interface RecommendationCardProps {
 }
 
 const riskStyles: Record<Recommendation['riskLevel'], string> = {
-  'Critical': 'border-red-500 bg-red-50 text-gray-800',
-  'High': 'border-orange-500 bg-orange-50 text-gray-800',
-  'Medium': 'border-yellow-500 bg-yellow-50 text-gray-800',
-  'Low': 'border-blue-500 bg-blue-50 text-gray-800',
+  'Critical': 'border-red-500 bg-red-50 dark:bg-red-900/30 text-gray-800 dark:text-gray-200',
+  'High': 'border-orange-500 bg-orange-50 dark:bg-orange-900/30 text-gray-800 dark:text-gray-200',
+  'Medium': 'border-yellow-500 bg-yellow-50 dark:bg-yellow-900/30 text-gray-800 dark:text-gray-200',
+  'Low': 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-gray-800 dark:text-gray-200',
 };
 
 const effortStyles: Record<Recommendation['effort'], string> = {
-  'High': 'text-gray-800',
-  'Medium': 'text-gray-800',
-  'Low': 'text-gray-800',
+  'High': 'text-gray-800 dark:text-gray-200',
+  'Medium': 'text-gray-800 dark:text-gray-200',
+  'Low': 'text-gray-800 dark:text-gray-200',
 };
 
 const RecommendationCard: React.FC<RecommendationCardProps> = ({ recommendation, onUpdateStatus, isReadOnly = false, compact = false }) => {
@@ -27,7 +27,7 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({ recommendation,
   return (
     <div className={`rounded-lg border-l-4 shadow-sm transition-all duration-300 ${riskStyles[recommendation.riskLevel]} ${compact ? 'p-4' : 'p-4'}`}>
       <div className="flex justify-between items-start">
-        <h3 className={`text-lg font-bold text-gray-900 ${compact ? 'mb-0' : 'mb-2'}`}>{recommendation.title}</h3>
+        <h3 className={`text-lg font-bold text-gray-900 dark:text-white ${compact ? 'mb-0' : 'mb-2'}`}>{recommendation.title}</h3>
         <div className="flex flex-col items-end gap-0 flex-shrink-0 ml-2 -mt-1">
           <span className={`px-2 py-1 text-xs font-semibold rounded-full ${riskStyles[recommendation.riskLevel]}`}>
             {recommendation.riskLevel} Risk
@@ -42,19 +42,19 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({ recommendation,
         <>
           <div className="mt-1 w-full">
             <details className="mb-1">
-              <summary className="text-sm font-medium text-blue-600 cursor-pointer hover:underline">Show Description and Rationale</summary>
-              <div className="mt-1 text-sm bg-gray-50 p-2 rounded-md">
-                <h4 className="font-semibold text-gray-800 mb-1">Description</h4>
-                <p className="mb-3 text-gray-600">{recommendation.description}</p>
-                <h4 className="font-semibold text-gray-800 mb-1">Rationale</h4>
-                <p className="text-gray-500">{recommendation.rationale}</p>
+              <summary className="text-sm font-medium text-blue-600 dark:text-blue-400 cursor-pointer hover:underline">Show Description and Rationale</summary>
+              <div className="mt-1 text-sm bg-gray-50 dark:bg-gray-800 p-2 rounded-md">
+                <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-1">Description</h4>
+                <p className="mb-3 text-gray-600 dark:text-gray-400">{recommendation.description}</p>
+                <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-1">Rationale</h4>
+                <p className="text-gray-500 dark:text-gray-400">{recommendation.rationale}</p>
               </div>
             </details>
             <details>
-              <summary className="text-sm font-medium text-blue-600 cursor-pointer hover:underline">
+              <summary className="text-sm font-medium text-blue-600 dark:text-blue-400 cursor-pointer hover:underline">
                 {recommendation.status === RecommendationStatus.Approved ? 'Show Implementation Notes' : 'Show Implementation Instructions'}
               </summary>
-              <div className="mt-1 text-sm text-gray-600 bg-gray-50 p-2 rounded-md">
+              <div className="mt-1 text-sm text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 p-2 rounded-md">
                 <p className="whitespace-pre-wrap">{recommendation.implementationInstructions}</p>
               </div>
             </details>
@@ -83,8 +83,8 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({ recommendation,
               )}
               {isActionable && !isReadOnly && recommendation.deploymentIncrease !== undefined && recommendation.scaleOptimizeIncrease !== undefined && (
                 <div className="text-sm space-y-1">
-                  <p className="text-black">Deployment increase: <span className="font-semibold text-green-700">{recommendation.deploymentIncrease}%</span></p>
-                  <p className="text-black">Scale & Optimize increase: <span className="font-semibold text-green-700">{recommendation.scaleOptimizeIncrease}%</span></p>
+                  <p className="text-black dark:text-gray-200">Deployment increase: <span className="font-semibold text-green-700 dark:text-green-400">{recommendation.deploymentIncrease}%</span></p>
+                  <p className="text-black dark:text-gray-200">Scale & Optimize increase: <span className="font-semibold text-green-700 dark:text-green-400">{recommendation.scaleOptimizeIncrease}%</span></p>
                 </div>
               )}
             </div>
