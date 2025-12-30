@@ -16,6 +16,7 @@ export interface Recommendation {
   implementedOn?: string;
   deploymentIncrease?: number;
   scaleOptimizeIncrease?: number;
+  applicableProduct?: 'XSIAM' | 'Cortex Cloud';
 }
 
 export interface ChatMessage {

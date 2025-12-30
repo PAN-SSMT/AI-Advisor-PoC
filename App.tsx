@@ -38,6 +38,7 @@ const MOCK_RECOMMENDATIONS: Recommendation[] = [
     status: RecommendationStatus.Pending,
     deploymentIncrease: 3,
     scaleOptimizeIncrease: 5,
+    applicableProduct: 'Cortex Cloud',
   },
   {
     id: 'rec-2',
@@ -50,6 +51,7 @@ const MOCK_RECOMMENDATIONS: Recommendation[] = [
     status: RecommendationStatus.Pending,
     deploymentIncrease: 4,
     scaleOptimizeIncrease: 2,
+    applicableProduct: 'Cortex Cloud',
   },
   {
     id: 'rec-3',
@@ -62,6 +64,7 @@ const MOCK_RECOMMENDATIONS: Recommendation[] = [
     status: RecommendationStatus.Pending,
     deploymentIncrease: 1,
     scaleOptimizeIncrease: 3,
+    applicableProduct: 'XSIAM',
   },
   {
     id: 'rec-4',
@@ -74,6 +77,7 @@ const MOCK_RECOMMENDATIONS: Recommendation[] = [
     status: RecommendationStatus.Pending,
     deploymentIncrease: 7,
     scaleOptimizeIncrease: 5,
+    applicableProduct: 'Cortex Cloud',
   },
   {
     id: 'rec-5',
@@ -86,6 +90,7 @@ const MOCK_RECOMMENDATIONS: Recommendation[] = [
     status: RecommendationStatus.Pending,
     deploymentIncrease: 4,
     scaleOptimizeIncrease: 4,
+    applicableProduct: 'XSIAM',
   },
   {
     id: 'rec-6',
@@ -98,6 +103,7 @@ const MOCK_RECOMMENDATIONS: Recommendation[] = [
     status: RecommendationStatus.Pending,
     deploymentIncrease: 6,
     scaleOptimizeIncrease: 3,
+    applicableProduct: 'Cortex Cloud',
   },
   {
     id: 'rec-7',
@@ -110,6 +116,7 @@ const MOCK_RECOMMENDATIONS: Recommendation[] = [
     status: RecommendationStatus.Pending,
     deploymentIncrease: 2,
     scaleOptimizeIncrease: 1,
+    applicableProduct: 'XSIAM',
   },
   {
     id: 'impl-1',
@@ -121,6 +128,9 @@ const MOCK_RECOMMENDATIONS: Recommendation[] = [
     effort: 'Low',
     status: RecommendationStatus.Approved,
     implementedOn: '2024-07-10',
+    applicableProduct: 'Cortex Cloud',
+    deploymentIncrease: 3,
+    scaleOptimizeIncrease: 2,
   },
   {
     id: 'impl-2',
@@ -132,6 +142,9 @@ const MOCK_RECOMMENDATIONS: Recommendation[] = [
     effort: 'Medium',
     status: RecommendationStatus.Approved,
     implementedOn: '2024-07-08',
+    applicableProduct: 'XSIAM',
+    deploymentIncrease: 6,
+    scaleOptimizeIncrease: 3,
   },
   {
     id: 'impl-3',
@@ -143,6 +156,9 @@ const MOCK_RECOMMENDATIONS: Recommendation[] = [
     effort: 'Low',
     status: RecommendationStatus.Approved,
     implementedOn: '2024-07-05',
+    applicableProduct: 'Cortex Cloud',
+    deploymentIncrease: 4,
+    scaleOptimizeIncrease: 2,
   },
   {
     id: 'impl-4',
@@ -154,6 +170,9 @@ const MOCK_RECOMMENDATIONS: Recommendation[] = [
     effort: 'Low',
     status: RecommendationStatus.Approved,
     implementedOn: '2024-07-02',
+    applicableProduct: 'Cortex Cloud',
+    deploymentIncrease: 2,
+    scaleOptimizeIncrease: 2,
   },
   {
     id: 'impl-5',
@@ -165,6 +184,9 @@ const MOCK_RECOMMENDATIONS: Recommendation[] = [
     effort: 'High',
     status: RecommendationStatus.Approved,
     implementedOn: '2024-06-28',
+    applicableProduct: 'XSIAM',
+    deploymentIncrease: 7,
+    scaleOptimizeIncrease: 4,
   },
   {
     id: 'impl-6',
@@ -174,8 +196,165 @@ const MOCK_RECOMMENDATIONS: Recommendation[] = [
     implementationInstructions: '1. Run RQL query to find unused security groups.\n2. Review the list for false positives.\n3. Delete security groups via Cloud Provider console.',
     riskLevel: 'Medium',
     effort: 'Low',
+    applicableProduct: 'XSIAM',
+    deploymentIncrease: 3,
+    scaleOptimizeIncrease: 1,
     status: RecommendationStatus.Approved,
     implementedOn: '2024-06-25',
+  },
+  {
+    id: 'impl-7',
+    title: 'Configure Network Segmentation Policies',
+    description: 'Implemented microsegmentation policies to restrict lateral movement between workloads in the cloud environment.',
+    rationale: 'Network segmentation limits the blast radius of a breach by preventing attackers from moving freely between systems.',
+    implementationInstructions: '1. Map application dependencies.\n2. Create identity-based segmentation policies in Prisma Cloud.\n3. Deploy in monitor mode first, then enforce.',
+    riskLevel: 'High',
+    effort: 'High',
+    status: RecommendationStatus.Approved,
+    implementedOn: '2024-06-20',
+    applicableProduct: 'Cortex Cloud',
+    deploymentIncrease: 5,
+    scaleOptimizeIncrease: 4,
+  },
+  {
+    id: 'impl-8',
+    title: 'Enable Runtime Protection for Containers',
+    description: 'Activated runtime defense policies to detect and prevent malicious activities within running containers.',
+    rationale: 'Runtime protection catches threats that evade static scanning, including zero-day exploits and fileless malware.',
+    implementationInstructions: '1. Navigate to Compute > Defend > Runtime.\n2. Create runtime rules for container behavior.\n3. Enable blocking mode for high-confidence detections.',
+    riskLevel: 'Critical',
+    effort: 'Medium',
+    status: RecommendationStatus.Approved,
+    implementedOn: '2024-06-18',
+    applicableProduct: 'Cortex Cloud',
+    deploymentIncrease: 6,
+    scaleOptimizeIncrease: 3,
+  },
+  {
+    id: 'impl-9',
+    title: 'Integrate SIEM with Cortex XSOAR',
+    description: 'Connected existing SIEM infrastructure with Cortex XSOAR for automated alert enrichment and response.',
+    rationale: 'SIEM integration enables centralized visibility and automated playbook execution for faster incident response.',
+    implementationInstructions: '1. Configure SIEM integration in XSOAR.\n2. Map alert fields to XSOAR incident types.\n3. Create automated enrichment playbooks.',
+    riskLevel: 'Medium',
+    effort: 'Medium',
+    status: RecommendationStatus.Approved,
+    implementedOn: '2024-06-15',
+    applicableProduct: 'XSIAM',
+    deploymentIncrease: 4,
+    scaleOptimizeIncrease: 4,
+  },
+  {
+    id: 'impl-10',
+    title: 'Deploy Host Vulnerability Scanning',
+    description: 'Enabled continuous vulnerability scanning for all EC2 instances and virtual machines across cloud accounts.',
+    rationale: 'Continuous scanning ensures new vulnerabilities are detected promptly as they are disclosed.',
+    implementationInstructions: '1. Deploy Prisma Cloud Defenders on hosts.\n2. Configure vulnerability scanning schedules.\n3. Set up alerting thresholds for severity levels.',
+    riskLevel: 'High',
+    effort: 'Low',
+    status: RecommendationStatus.Approved,
+    implementedOn: '2024-06-12',
+    applicableProduct: 'Cortex Cloud',
+    deploymentIncrease: 4,
+    scaleOptimizeIncrease: 2,
+  },
+  {
+    id: 'impl-11',
+    title: 'Implement Secrets Scanning in Repositories',
+    description: 'Configured automated scanning for exposed secrets and credentials in source code repositories.',
+    rationale: 'Secrets in code are a common attack vector. Early detection prevents credential exposure in production.',
+    implementationInstructions: '1. Go to Application Security > Secrets.\n2. Connect code repositories.\n3. Enable pre-commit hooks for real-time detection.',
+    riskLevel: 'Critical',
+    effort: 'Low',
+    status: RecommendationStatus.Approved,
+    implementedOn: '2024-06-08',
+    applicableProduct: 'Cortex Cloud',
+    deploymentIncrease: 3,
+    scaleOptimizeIncrease: 2,
+  },
+  {
+    id: 'impl-12',
+    title: 'Configure Alert Fatigue Reduction',
+    description: 'Tuned alert policies and implemented alert grouping to reduce noise and prioritize actionable findings.',
+    rationale: 'Alert fatigue leads to missed critical alerts. Proper tuning ensures analysts focus on real threats.',
+    implementationInstructions: '1. Review alert volume and false positive rates.\n2. Adjust policy thresholds.\n3. Enable alert grouping and deduplication.',
+    riskLevel: 'Medium',
+    effort: 'Medium',
+    status: RecommendationStatus.Approved,
+    implementedOn: '2024-06-05',
+    applicableProduct: 'XSIAM',
+    deploymentIncrease: 2,
+    scaleOptimizeIncrease: 3,
+  },
+  {
+    id: 'impl-13',
+    title: 'Enable Cloud Infrastructure Entitlement Management',
+    description: 'Deployed CIEM capabilities to monitor and right-size cloud permissions across AWS and Azure.',
+    rationale: 'Excessive permissions are a leading cause of cloud breaches. CIEM ensures least-privilege access.',
+    implementationInstructions: '1. Enable IAM Security in Prisma Cloud.\n2. Run permissions analysis.\n3. Generate and apply right-sized policies.',
+    riskLevel: 'High',
+    effort: 'High',
+    status: RecommendationStatus.Approved,
+    implementedOn: '2024-06-01',
+    applicableProduct: 'Cortex Cloud',
+    deploymentIncrease: 5,
+    scaleOptimizeIncrease: 4,
+  },
+  {
+    id: 'impl-14',
+    title: 'Set Up Automated Compliance Reporting',
+    description: 'Configured automated compliance reports for SOC 2, PCI-DSS, and HIPAA frameworks.',
+    rationale: 'Automated reporting reduces manual effort and ensures continuous compliance monitoring.',
+    implementationInstructions: '1. Navigate to Compliance > Reports.\n2. Select required compliance frameworks.\n3. Schedule weekly report generation and distribution.',
+    riskLevel: 'Low',
+    effort: 'Low',
+    status: RecommendationStatus.Approved,
+    implementedOn: '2024-05-28',
+    applicableProduct: 'XSIAM',
+    deploymentIncrease: 3,
+    scaleOptimizeIncrease: 3,
+  },
+  {
+    id: 'impl-15',
+    title: 'Deploy Threat Intelligence Feeds',
+    description: 'Integrated external threat intelligence feeds with Cortex XSIAM for enhanced threat detection and context.',
+    rationale: 'Threat intelligence enriches alerts with IOCs and TTPs, enabling faster identification of known threats.',
+    implementationInstructions: '1. Navigate to Threat Intelligence > Feeds.\n2. Configure premium and open-source feeds.\n3. Map indicators to detection rules.',
+    riskLevel: 'High',
+    effort: 'Medium',
+    status: RecommendationStatus.Approved,
+    implementedOn: '2024-05-25',
+    applicableProduct: 'XSIAM',
+    deploymentIncrease: 4,
+    scaleOptimizeIncrease: 3,
+  },
+  {
+    id: 'impl-16',
+    title: 'Configure Data Loss Prevention Policies',
+    description: 'Implemented DLP policies to detect and prevent unauthorized data exfiltration across cloud storage and endpoints.',
+    rationale: 'DLP protects sensitive data from accidental or malicious exposure, reducing compliance and reputational risks.',
+    implementationInstructions: '1. Define sensitive data patterns and classifications.\n2. Create DLP policies in Data Security.\n3. Enable alerting and blocking for policy violations.',
+    riskLevel: 'Critical',
+    effort: 'High',
+    status: RecommendationStatus.Approved,
+    implementedOn: '2024-05-20',
+    applicableProduct: 'Cortex Cloud',
+    deploymentIncrease: 4,
+    scaleOptimizeIncrease: 3,
+  },
+  {
+    id: 'impl-17',
+    title: 'Enable Identity Analytics',
+    description: 'Activated identity analytics to detect suspicious user behavior and compromised credentials across cloud environments.',
+    rationale: 'Identity-based attacks are a leading cause of breaches. Analytics detect anomalous access patterns early.',
+    implementationInstructions: '1. Enable Identity Security module.\n2. Configure baseline behavior learning.\n3. Set up alerts for anomalous activities.',
+    riskLevel: 'High',
+    effort: 'Low',
+    status: RecommendationStatus.Approved,
+    implementedOn: '2024-05-15',
+    applicableProduct: 'Cortex Cloud',
+    deploymentIncrease: 2,
+    scaleOptimizeIncrease: 3,
   }
 ];
 
@@ -344,7 +523,7 @@ const App: React.FC = () => {
       <header className="px-4 pt-[12px] pb-[11px] md:px-8 md:pt-[14px] md:pb-[13px] border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-black shadow-sm flex-shrink-0 flex justify-between items-center transition-colors duration-200">
         <div>
           <img 
-            src={isDarkMode ? "./public/nova-logo-dark.png" : "./public/nova-logo.png"} 
+            src={isDarkMode ? "./nova-logo-dark.png" : "./nova-logo.png"} 
             alt="NOVA - Next-Gen Operations & Virtual Advisor" 
             className={`${isDarkMode ? 'h-[87px]' : 'h-[99px]'} -translate-y-[6%]`}
           />
@@ -364,7 +543,7 @@ const App: React.FC = () => {
           </button>
           <div className="text-right">
             <img 
-              src={isDarkMode ? "./public/PaloAltoLogoDark.png" : "./public/PaloAltoLogo.png"} 
+              src={isDarkMode ? "./PaloAltoLogoDark.png" : "./PaloAltoLogo.png"} 
               alt="Palo Alto Networks" 
               className="h-[74px]" 
             />
@@ -401,6 +580,7 @@ const App: React.FC = () => {
               <ProgressIndicatorsWidget
                 onOpenDeploymentModal={() => setIsDeploymentModalOpen(true)}
                 onOpenScaleOptimizeModal={() => setIsScaleOptimizeModalOpen(true)}
+                recommendations={recommendations}
               />
             </div>
           </div>
@@ -417,7 +597,7 @@ const App: React.FC = () => {
       <Modal isOpen={isDeploymentModalOpen} onClose={() => setIsDeploymentModalOpen(false)} title="Deployment Details">
         <DeploymentDetails />
       </Modal>
-      <Modal isOpen={isScaleOptimizeModalOpen} onClose={() => setIsScaleOptimizeModalOpen(false)} title="Scale & Optimize Status">
+      <Modal isOpen={isScaleOptimizeModalOpen} onClose={() => setIsScaleOptimizeModalOpen(false)} title="Scale & Optimize Details">
         <ScaleOptimizeDetails />
       </Modal>
       <Modal isOpen={isCloudDeploymentModalOpen} onClose={() => setIsCloudDeploymentModalOpen(false)} title="Cloud Deployment Services Details">

@@ -87,7 +87,7 @@ export const createChat = (): Chat => {
   return ai.chats.create({
     model: 'gemini-2.5-flash',
     config: {
-      systemInstruction: `You are a helpful and knowledgeable AI assistant specializing in Palo Alto Networks' Prisma Cloud and Cortex Cloud. Answer the user's questions clearly and concisely. You are part of the "Cloud Security AI Advisor" application. Current Date: ${new Date().toLocaleDateString()}`,
+      systemInstruction: `You are a helpful and knowledgeable AI assistant specializing in Palo Alto Networks' Prisma Cloud and Cortex Cloud.Answer the user's questions clearly and concisely. You are part of the "Cloud Security AI Advisor" application. For all the querys try searching in the available information on the file store. Complement this information with public available data. If no information related to the query is on the available files use public available documentation. Current Date: ${new Date().toLocaleDateString()}`,
       tools: [fileSearchTool],
     }
   });
@@ -100,6 +100,6 @@ export const sendMessage = async (chat: Chat, message: string): Promise<string> 
   } catch (error: any) {
     console.error("Error getting chat response:", error);
     const errorMessage = error?.message || error?.toString() || "Unknown error";
-    return `I'm sorry, I encountered an error.`;
+    return `I'm sorry, I encountered an error: ${errorMessage}`;
   }
 };

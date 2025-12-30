@@ -6,8 +6,8 @@ interface AppNavigationProps {
 
 const AppNavigation: React.FC<AppNavigationProps> = ({ currentApp }) => {
   // Adjust these paths based on your deployment setup
-  const novaPath = 'index.html';
-  const remasPath = 'index.html';
+  const novaPath = '../cloud-security-ai-advisor (6)/index.html';
+  const remasPath = '../remas/index.html';
 
   return (
     <div className="flex items-center gap-2 bg-gray-100 rounded-lg p-1">

@@ -13,7 +13,7 @@ interface RecommendedActionsWidgetProps {
   isPopupWindow?: boolean;
 }
 
-type SortByType = 'risk' | 'effort' | 'default';
+type SortByType = 'risk' | 'effort' | 'product' | 'default';
 
 const riskOrder: Record<Recommendation['riskLevel'], number> = { 'Critical': 4, 'High': 3, 'Medium': 2, 'Low': 1 };
 const effortOrder: Record<Recommendation['effort'], number> = { 'High': 3, 'Medium': 2, 'Low': 1 };
@@ -28,6 +28,15 @@ const sortRecommendations = (recs: Recommendation[], sortBy: SortByType): Recomm
     sortedRecs.sort((a, b) => {
         const effortComparison = effortOrder[b.effort] - effortOrder[a.effort];
         if (effortComparison !== 0) return effortComparison;
+        return riskOrder[b.riskLevel] - riskOrder[a.riskLevel];
+    });
+  } else if (sortBy === 'product') {
+    // Sort by product (Cortex Cloud first, then XSIAM), then by risk as secondary
+    sortedRecs.sort((a, b) => {
+        const productA = a.applicableProduct || 'Cortex Cloud';
+        const productB = b.applicableProduct || 'Cortex Cloud';
+        const productComparison = productA.localeCompare(productB);
+        if (productComparison !== 0) return productComparison;
         return riskOrder[b.riskLevel] - riskOrder[a.riskLevel];
     });
   }
@@ -53,6 +62,9 @@ const SortDropdown: React.FC<{
                     </button>
                     <button onClick={() => { setSortBy('effort'); setIsOpen(false); }} className="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                         By Effort
+                    </button>
+                    <button onClick={() => { setSortBy('product'); setIsOpen(false); }} className="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        By Product
                     </button>
                 </div>
             </div>
