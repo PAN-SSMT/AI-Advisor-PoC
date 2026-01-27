@@ -547,7 +547,6 @@ const App: React.FC = () => {
               alt="Palo Alto Networks" 
               className="h-[74px]" 
             />
-            <p className="text-gray-900 dark:text-gray-100 -mt-1 text-[18px] font-medium pr-[6%]">Technical Services</p>
           </div>
         </div>
       </header>
