@@ -90,7 +90,7 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({ recommendation,
         <>
           <div className="mt-1 w-full">
             <details className="mb-1">
-              <summary className="text-sm font-medium text-blue-600 dark:text-blue-400 cursor-pointer hover:underline">Show Description and Rationale</summary>
+              <summary className="text-sm font-medium text-blue-600 dark:text-blue-400 cursor-pointer hover:underline">Description</summary>
               <div className="mt-1 text-sm bg-gray-50 dark:bg-gray-800 p-2 rounded-md">
                 <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-1">Description</h4>
                 <p className="mb-3 text-gray-600 dark:text-gray-400">{recommendation.description}</p>
@@ -100,7 +100,7 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({ recommendation,
             </details>
             <details>
               <summary className="text-sm font-medium text-blue-600 dark:text-blue-400 cursor-pointer hover:underline">
-                {recommendation.status === RecommendationStatus.Approved ? 'Show Implementation Notes' : 'Show Implementation Instructions'}
+                {recommendation.status === RecommendationStatus.Approved ? 'Implementation Notes' : 'Implementation Instructions'}
               </summary>
               <div className="mt-1 text-sm text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 p-2 rounded-md">
                 <p className="whitespace-pre-wrap">{recommendation.implementationInstructions}</p>

@@ -31,7 +31,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, onSendMessage, 
   return (
     <aside className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm flex flex-col flex-1 overflow-hidden min-h-0 transition-colors duration-200">
       <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">NOVA Advisor</h2>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Agentix</h2>
       </div>
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((message) => (
